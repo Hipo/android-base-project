@@ -20,9 +20,14 @@ task ktlint(type: JavaExec, group: "verification") {
 
 detekt {
     version = "1.0.0.RC6-4"
+    def configFile = new File(rootDir, 'detekt-config.xml')
+    if (!configFile.exists()) {
+        new URL('https://raw.githubusercontent.com/Hipo/android-base-project/master/config/quality/detekt-config.yml')
+                .withInputStream{ i -> configFile.withOutputStream{ it << i }}
+    }
     profile("main") {
         input = "$projectDir"
-        config = ""
+        config = "$configFile"
         filters = ".*/resources/.*,.*/tmp/.*"
         output = "$projectDir/build/reports/detekt"
     }
@@ -38,7 +43,7 @@ task checkstyle(type: Checkstyle) {
     // rules.xml copy from:
     // https://raw.githubusercontent.com/checkstyle/checkstyle/checkstyle-7.4/src/main/resources/google_checks.xml
     // the version should be as same as plugin version
-    configFile = new File(rootDir, 'checkstyle.xml')
+    configFile = new File(rootDir, 'checkstyle-config.xml')
     if (!configFile.exists()) {
         new URL('https://raw.githubusercontent.com/Hipo/android-base-project/master/config/quality/checkstyle.xml')
                 .withInputStream{ i -> configFile.withOutputStream{ it << i }}
