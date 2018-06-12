@@ -1,0 +1,73 @@
+apply plugin: 'io.gitlab.arturbosch.detekt'
+apply plugin: 'checkstyle'
+apply plugin: 'pmd'
+
+configurations {
+    ktlint
+}
+
+dependencies {
+    ktlint "com.github.shyiko:ktlint:0.23.1"
+}
+
+task ktlint(type: JavaExec, group: "verification") {
+    description = "Check Kotlin code style."
+    main = "com.github.shyiko.ktlint.Main"
+    classpath = configurations.ktlint
+    args "src/**/*.kt"
+    args "--reporter=html,artifact=me.cassiano:ktlint-html-reporter:0.1.2,output=${buildDir}/reports/ktlint/ktlint.html"
+}
+
+detekt {
+    version = "1.0.0.RC6-4"
+    profile("main") {
+        input = "$projectDir"
+        config = ""
+        filters = ".*/resources/.*,.*/tmp/.*"
+        output = "$projectDir/build/reports/detekt"
+    }
+}
+
+checkstyle {
+    // assign the latest checkstyle version explicitly
+    // default version is very old, likes 5.9
+    toolVersion = '8.10.1'
+}
+
+task checkstyle(type: Checkstyle) {
+    // rules.xml copy from:
+    // https://raw.githubusercontent.com/checkstyle/checkstyle/checkstyle-7.4/src/main/resources/google_checks.xml
+    // the version should be as same as plugin version
+    configFile new File(rootDir, "config/quality/checkstyle.xml")
+    source 'src'
+    include '**/*.java'
+    exclude '**/gen/**'
+    exclude '**/R.java'
+    exclude '**/BuildConfig.java'
+    classpath = files()
+
+    showViolations true
+
+    reports {
+        xml.enabled false
+        html.enabled true
+    }
+}
+
+
+task pmd(type: Pmd) {
+
+    source 'src'
+    include '**/*.java'
+    exclude '**/gen/**'
+
+    reports {
+        xml.enabled = false
+        html.enabled = true
+    }
+}
+
+preBuild.dependsOn('checkstyle')
+preBuild.dependsOn ktlint
+preBuild.dependsOn detektCheck
+preBuild.dependsOn('pmd')
