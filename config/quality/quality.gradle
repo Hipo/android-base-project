@@ -20,7 +20,7 @@ task ktlint(type: JavaExec, group: "verification") {
 
 detekt {
     version = "1.0.0.RC6-4"
-    def configFile = new File(rootDir, 'detekt-config.xml')
+    def configFile = new File(rootDir, 'detekt-config.yml')
     if (!configFile.exists()) {
         new URL('https://raw.githubusercontent.com/Hipo/android-base-project/master/config/quality/detekt-config.yml')
                 .withInputStream{ i -> configFile.withOutputStream{ it << i }}
