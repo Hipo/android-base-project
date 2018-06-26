@@ -19,6 +19,7 @@ At the end of apply commands
     apply from: 'https://raw.githubusercontent.com/Hipo/android-base-project/master/config/quality/quality.gradle'
 ```
 
+When you add those lines and build it, probably it will fail for the first time. This is the expected outcome, because if one of the quality rules has failed it causes build to fail. This is what we aimed for. When the quailty tools causes build to fail, quality tools will create reports files under `app\build\reports\`. From those reports you can see the problems to fix.
 
 **Needs to Add**
 - Product flavors (Staging, Prod)
