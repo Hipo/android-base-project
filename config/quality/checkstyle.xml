@@ -180,10 +180,9 @@
             <property name="arrayInitIndent" value="2"/>
         </module>
         <module name="AbbreviationAsWordInName">
+            <property name="ignoreStatic" value="true"/>
             <property name="ignoreFinal" value="false"/>
             <property name="allowedAbbreviationLength" value="1"/>
-            <property name="ignoreFinal" value="true"/>
-            <property name="ignoreStatic" value="true"/>
         </module>
         <module name="OverloadMethodsDeclarationOrder"/>
         <module name="VariableDeclarationUsageDistance"/>
