@@ -7,7 +7,6 @@ apply from: '../config/quality/quality.gradle'
 
 android {
     compileSdkVersion 'android-28'
-    buildToolsVersion "28.0.1"
     defaultConfig {
         applicationId "com.hipo.android"
         minSdkVersion 15
