@@ -187,7 +187,7 @@ exceptions:
      - RuntimeException
      - Throwable
   TooGenericExceptionThrown:
-    active: true
+    active: false
     exceptionNames:
      - Error
      - Exception
