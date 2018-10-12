@@ -19,17 +19,24 @@ task ktlint(type: JavaExec, group: "verification") {
 }
 
 detekt {
-    version = "1.0.0.RC8"
+    toolVersion = "1.0.0.RC9.2"
     def configFile = new File(rootDir, 'detekt-config.yml')
     if (!configFile.exists()) {
         new URL('https://raw.githubusercontent.com/Hipo/android-base-project/master/config/quality/detekt-config.yml')
                 .withInputStream{ i -> configFile.withOutputStream{ it << i }}
     }
-    profile("main") {
-        input = "$projectDir"
-        config = "$configFile"
-        filters = ".*/resources/.*,.*/tmp/.*"
-        output = "$projectDir/build/reports/detekt"
+    input = files("$projectDir")
+    config = files("$configFile")
+    filters = ".*/resources/.*,.*/tmp/.*"
+    reports {
+        xml {
+            enabled = true
+            destination = file("$projectDir/build/reports/detekt/detek-report.xml")
+        }
+        html {
+            enabled = true
+            destination = file("$projectDir/build/reports/detekt/detek-report.xml")
+        }
     }
 }
 
@@ -74,5 +81,5 @@ task pmd(type: Pmd) {
 
 preBuild.dependsOn('checkstyle')
 preBuild.dependsOn ktlint
-preBuild.dependsOn detektCheck
+preBuild.dependsOn('detekt')
 preBuild.dependsOn('pmd')

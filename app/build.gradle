@@ -1,5 +1,5 @@
 plugins {
-    id "io.gitlab.arturbosch.detekt" version "1.0.0.RC8"
+    id "io.gitlab.arturbosch.detekt" version "1.0.0.RC9.2"
 }
 
 apply plugin: 'com.android.application'

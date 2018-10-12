@@ -10,7 +10,7 @@ Before the ```apply plugin: 'com.android.application'```
 
 ```gradle
     plugins {
-        id "io.gitlab.arturbosch.detekt" version "1.0.0.RC8"
+        id "io.gitlab.arturbosch.detekt" version "1.0.0.RC9.2"
     }
 ```
 At the end of apply commands
