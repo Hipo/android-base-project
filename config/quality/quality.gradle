@@ -35,7 +35,7 @@ detekt {
         }
         html {
             enabled = true
-            destination = file("$projectDir/build/reports/detekt/detek-report.xml")
+            destination = file("$projectDir/build/reports/detekt/detek-report.html")
         }
     }
 }
