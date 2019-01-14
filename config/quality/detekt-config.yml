@@ -356,7 +356,7 @@ style:
     active: false
   ThrowsCount:
     active: true
-    max: 3
+    max: 5
   TrailingWhitespace:
     active: false
   UnnecessaryAbstractClass:
