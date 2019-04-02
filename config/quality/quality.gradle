@@ -82,4 +82,4 @@ task pmd(type: Pmd) {
 preBuild.dependsOn('checkstyle')
 preBuild.dependsOn ktlint
 preBuild.dependsOn('detekt')
-preBuild.dependsOn('pmd')
+//preBuild.dependsOn('pmd')
